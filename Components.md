@@ -159,3 +159,4 @@ in html of app.component
 <div class="app-server"></div>
 ```
 1.4)selector by id : Not work in angular
+
