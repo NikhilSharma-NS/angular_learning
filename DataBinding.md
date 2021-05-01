@@ -156,3 +156,31 @@ Step5: display serverName on html page
 
 ### 4) Two-way data Binding
 
+we will combine property and event binding
+
+Step1) in html file we will use ngModel
+
+```
+<input type="text" class="form-control" [(ngModel)]="serverName">
+<p>{{serverName}}</p>
+```
+
+Step2) 
+
+in type script we will declare serverName in the type script
+```
+export class ServerComponent implements OnInit{
+  serverName = 'testserver';
+  constructor(){
+}
+ngOnInit(){
+
+}
+```
+
+Step3
+
+input will be prepoupulated with testserver value
+if we will update the value of input box it will update the value of below 
+text as well of input text.
+
