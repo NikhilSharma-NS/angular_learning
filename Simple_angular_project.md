@@ -263,4 +263,60 @@ in recipe-list.componnet.html file
 
  ```
 
- 
+Step 12:Working on Shopping list Component
+
+Inside shopping-list.component.html
+
+```
+<div class="row">
+  <div class="col-xs-10">
+    <app-shopping-edit></app-shopping-edit>
+    <hr>
+    <ul class="list-group">
+      <a 
+        class="list-group-item"
+        style="cursor: pointer"></a>
+    </ul>
+  </div>
+</div>
+```
+
+Step 13 : Creating an ingredient Model inside shared folder
+
+this is feature of type script we don't need to declare the variable and assign it.
+in the constrtuctor if we will make it public it will consider as declare and assigned
+
+```
+export class Ingredient {
+    // TS shortcut.
+    constructor(public name: string, public amount: number) { }
+}
+```
+
+Step 14 : Creating and Ouputting the Shopping list
+1)Inside shopping-list.componnet.ts file
+
+```
+
+export class ShoppingListComponent implements OnInit {
+  ingredients: Ingredient[]=[new Recipe('Apple',4),new Recipe('mango',4)]
+
+ ``` 
+2) Inside shopping-list.componnet.html file
+
+```
+<div class="row">
+  <div class="col-xs-10">
+    <app-shopping-edit></app-shopping-edit>
+    <hr>
+    <ul class="list-group">
+      <a 
+        class="list-group-item"
+        style="cursor: pointer"
+        *ngFor="let item of ingredients"
+        >{{ item.name }} ({{ item.amount }})</a>
+    </ul>
+  </div>
+</div>
+```
+
