@@ -56,5 +56,211 @@ ng g c shopping-list
 ng g c shopping-list/shopping-edit
 
 
-Step 6 : 
+Step 6 : Using the Component
 
+1) Inside app.component.html
+```
+<app-header><app-header>
+<div class="container">
+  <div class="row">
+      <div class="col-md-12">
+         <app-recipes></app-recipes>
+         <app-shopping-list></app-shopping-list>
+      </div>
+  </div>
+</div>
+```
+2) Inside recipes.component.html
+```
+<div class="row">
+      <div class="col-md-5">
+         <app-recipe-list></app-recipe-list>
+      </div>
+       <div class="col-md-7">
+         <app-recipe-detail></app-recipe-detail>
+      </div>
+</div>
+```
+
+3)  Inside recipe.list.html
+
+```
+<app-recipe-item></app-recipe-item>
+    
+```
+
+4) Inside Shopping.list.html
+
+```
+<div class="row">
+      <div class="col-xs-10">
+         <app-shopping-edit></app-shopping-edit>
+         <hr>
+         <p>The list</p>
+      </div>
+</div>
+```
+
+Step 7 : Adding the Navigation Bar
+
+header.component.html
+
+```
+<nav class="navbar navbar-default">
+   <div class="container-fluid">
+     <div class="navbar-header">
+        <a href="#" class="navbar-brand">Receipe Book</a>
+     </div>
+    <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+         <li><a href="#" >Receipes</a></li>
+         <li><a href="#" >Shopping list</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" role="button">Manage<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#" >Save Data</a></li>
+                <li><a href="#" >Fetch Data</a></li>
+              </ul>
+          </li>
+        </ul>
+
+     </div>
+ 
+   </div>
+ 
+</nav>
+```
+
+Step 8 : 
+
+Creating a Recipe Model in recipes folder
+
+recipes/recipe.model.ts 
+
+```
+
+export class Recipe {
+    public name: string;
+    public description: string;
+    public imagePath: string;
+    public ingredients: Ingredient[];
+
+    constructor(name, description, imagePath) {
+        this.name = name;
+        this.description = description;
+        this.imagePath = imagePath;
+    }
+}
+```
+
+Step 9:Adding the content to the Recipes Components
+
+1)create the array of recipe(recipe-list.component.ts)
+
+```
+
+export class RecipeListComponent implements OnInit {
+  recipes: Recipe[]=[new Recipe('A test','this is simple','path of image')]
+
+ ``` 
+
+ 2) Now inside receipe list html file
+
+ ```
+ <div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-success">New Recipe</button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-12">    
+     <a href="#" class="list-group-item clearfix">
+      <div class="pull-left">
+        <h4 class="list-group-item-heading">Recipe Name</h4>
+        <p class="list-group-item-text">Description</p>        
+      </div>
+      <span class="pull-right">
+        <img src="" alt="" class="img-responsive" style="max-height: 50px;">
+      </span>
+    </a>
+    <app-recipe-item></app-recipe-item>
+  </div>
+</div>
+
+ ```
+
+
+Step 10:outputting a list of recipes with ngFor
+
+in recipe-list.componnet.html file
+
+```
+ <div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-success">New Recipe</button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-12">    
+     <a href="#" class="list-group-item clearfix *ngFor="let recipe of recipes;">
+      <div class="pull-left">
+        <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
+        <p class="list-group-item-text">{{ recipe.description }}</p>        
+      </div>
+      <span class="pull-right">
+        <img src="{{ recipe.image }}" alt="{{ recipe.name }}" class="img-responsive" style="max-height: 50px;">
+      </span>
+    </a>
+    <app-recipe-item></app-recipe-item>
+  </div>
+</div>
+
+ ```
+
+ Step 11:Display Recipe Details
+
+ inside recipe-detail.componnet.html
+
+ ```
+ <div class="row">
+  <div class="col-xs-12">
+    <img [src]="" alt="" class="img-responsive" style="max-height: 300px">
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h1>Recipe Name</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="btn-group" appDropdown>
+      <button type="button" class="btn btn-primary dropdown-toggle">
+        Manage Recipe <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a style="cursor: pointer" >To Shopping List</a></li>
+        <li><a style="cursor: pointer" >Edit Recipe</a></li>
+        <li><a style="cursor: pointer" >Delete Recipe</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    Recipe Des
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    ingredient
+  </div>
+</div>
+
+ ```
+
+ 
