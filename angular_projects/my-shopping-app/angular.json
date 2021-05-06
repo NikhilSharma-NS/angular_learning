@@ -3,9 +3,16 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "my-first-apps": {
+    "my-shopping-app": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/my-first-apps",
+            "outputPath": "dist/my-shopping-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -24,7 +31,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -46,13 +53,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
                 }
               ]
             }
@@ -61,18 +68,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "my-first-apps:build"
+            "browserTarget": "my-shopping-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "my-first-apps:build:production"
+              "browserTarget": "my-shopping-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "my-first-apps:build"
+            "browserTarget": "my-shopping-app:build"
           }
         },
         "test": {
@@ -87,8 +94,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }
@@ -110,16 +116,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "my-first-apps:serve"
+            "devServerTarget": "my-shopping-app:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "my-first-apps:serve:production"
+              "devServerTarget": "my-shopping-app:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "my-first-apps"
+  "defaultProject": "my-shopping-app"
 }
