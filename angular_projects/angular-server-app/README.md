@@ -1,27 +1,187 @@
-# AngularServerApp
+#### Deep Dive in Componets
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.11.
+##### Splitttling Apps into Component
 
-## Development server
+Property & Event Binding
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+we can use in property and event binding in  below sections 
 
-## Code scaffolding
+```
+1) HTML Elemets (Native Properties)
+2) Directive (Custom Properties and Events)
+3) Components (Custom Properties & Events)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```
 
-## Build
+##### Binding to Custom Properties
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Inside server-elements-componnent.ts
 
-## Running unit tests
+```
+ @Input() element: { type: string, name: string, content: string };
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+I want to access element in another components. by default all property can not be accessible outside the component. so we need to add the decorator
 
-## Running end-to-end tests
+Now can bind it like below in app.component.html
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```
+<div class="row">
+    <div class="col-xs-12">
+      <app-server-elements
+        *ngFor="let serverElement of serverElements"
+        [element]="serverElement"
+      ></app-server-elements>
+    </div>
+  </div>
 
-## Further help
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+##### Assigning an Alias to custome Properties
+
+
+```
+ @Input('srvElement') element: { type: string, name: string, content: string };
+```
+```
+<div class="row">
+    <div class="col-xs-12">
+      <app-server-elements
+        *ngFor="let serverElement of serverElements"
+        [srvElement]="serverElement"
+      ></app-server-elements>
+    </div>
+  </div>
+
+```
+
+
+##### Binding to Custom Events
+
+inside appcomponent.html
+
+```
+  <app-cockpits
+    (srvCreate)="onServerAdded($event)"
+    (blueprintCreated)="onBlueprintAdded($event)"
+  ></app-cockpits>
+```
+
+inside app.ts
+
+```
+  onServerAdded(serverData: {name: string, content: string}) {
+    this.serverElements.push({
+      type: 'server',
+      name: serverData.name,
+      content: serverData.content
+    });
+  }
+
+  onBlueprintAdded(blueprintData: {name: string, content: string}) {
+    this.serverElements.push({
+      type: 'blueprint',
+      name: blueprintData.name,
+      content: blueprintData.content
+    });
+  }
+```
+
+inside cockpits.ts
+
+```
+  @Output('srvCreate') serverCreated = new EventEmitter<{name: string, content: string}>();
+  @Output() blueprintCreated = new EventEmitter<{name: string, content: string}>();
+```
+
+```
+ onAddServer(): void {
+      this.serverCreated.emit({name: this.newServerName, content: this.newServerContent});
+  }
+
+  onAddBlueprint(): void {
+      this.blueprintCreated.emit({name: this.newServerName, content: this.newServerContent});
+  }
+
+```
+
+#### Assigning an alias to Custom Events
+
+```
+  @Output('srvCreate') serverCreated = new EventEmitter<{name: string, content: string}>();
+  @Output('bpCreated') blueprintCreated = new EventEmitter<{name: string, content: string}>();
+```
+
+
+#### Understanding View Encapsulation
+
+add the ViewEncapsulation inside server-element.component.ts
+
+```
+@Component({
+  selector: 'app-server-elements',
+  templateUrl: './server-elements.component.html',
+  styleUrls: ['./server-elements.component.css'],
+  encapsulation:ViewEncapsulation.None
+})
+export class ServerElementsComponent implements OnInit {
+
+  // alias found in template
+  @Input('srvElement') element: { type: string, name: string, content: string };
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}
+```
+add the css inside server-element.component.css
+```
+label{
+    color: green;
+}
+```
+encapsulation:ViewEncapsulation.None -> apply the css what every I am adding inside css file of component
+
+encapsulation:ViewEncapsulation.Native -> this is called ShadowDom instead of Native Now the functionality is the same though.
+
+
+#### Using Local Refernces in Templates
+
+inside cockpits.component.html : serverNameInput
+and pass insdie onclick function argument
+
+```
+<input type="text" class="form-control" #serverNameInput [(ngModel)]="newServerName">
+
+ <button
+        class="btn btn-primary btn-outline-primary"
+        (click)="onAddServer(serverNameInput)">Add Server </button>
+```
+
+Inside cockpits.component.ts file
+
+```
+ onAddServer(name): void {
+    console.log(name.value)
+ }
+```
+
+
+#### Getting Access to the Template & DOM with @ViewChild
+inside cockpits.component.html 
+
+```
+ <input type="text" class="form-control" #servernamesInput>
+```
+
+inside cockpits.component.ts
+
+```
+ @ViewChild('servernamesInput') servernamesInputva: ElementRef;
+
+  onAddServer(): void {
+      console.log(this.servernamesInputva.nativeElement.value)
+  }
+```

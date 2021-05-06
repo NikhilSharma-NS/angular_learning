@@ -1,9 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'app-server-elements',
   templateUrl: './server-elements.component.html',
-  styleUrls: ['./server-elements.component.css']
+  styleUrls: ['./server-elements.component.css'],
+  encapsulation:ViewEncapsulation.None
 })
 export class ServerElementsComponent implements OnInit {
 
