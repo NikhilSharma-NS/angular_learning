@@ -188,4 +188,117 @@ inside cockpits.component.ts
 
 #### Understanding the Component Life Cycle
 
+LifeCycle 
+
+1) ngOnChanges -> Called after a bound input property changes
+2) ngOnInit -> Called once the component is initialized
+3) ngDoCheck -> Called during every change detection run
+4) ngAfterContentInit -> Called after content (ng-content) has been projected into view
+5) ngAfterContentChecked -> Called every time the projected content has been checked 
+6) ngAfterViewInit -> Called after the component's view(and child views ) has been initialized
+7) ngAfterViewChecked -> Called every time the view (and child views) has been checked
+8) ngOnDestroy -> Called once the component is about to be destroyed
+
+
+#### Seeing Lifecycle Hooks in Action
+
+inside server-elements.componenet.ts
+
+1) Inside constructor
+```
+constructor() {
+    console.log("Construtor called")
+   }
+```
+
+2) ngOnChanges()
+
+we need to implement the OnChanges method in the ServerElementsComponent class
+```
+
+export class ServerElementsComponent implements OnInit,OnChanges{
+ ngOnChanges(changes: SimpleChanges){
+    console.log("ngOnChanges called") 
+    console.log(changes) 
+   }
+}
+
+```
+
+3) ngOnInit()
+we need to implement the ngOnInit method in the ServerElementsComponent class
+
+```
+export class ServerElementsComponent implements OnInit,OnChanges{
+ ngOnInit() {
+    console.log("ngOnInit called")
+  }
+}
+```
+
+4) ngDoCheck
+
+we need to implement the ngDoCheck method in the ServerElementsComponent class
+```
+export class ServerElementsComponent implements OnInit,OnChanges,DoCheck {
+ ngDoCheck(){
+    console.log("ngDoCheck  called")
+  }
+}
+```
+
+5) ngAfterContentInit
+
+we need to implement the ngAfterContentInit method in the ServerElementsComponent class
+```
+export class ServerElementsComponent implements OnInit,OnChanges,DoCheck,AfterContentInit {
+ ngAfterContentInit(){
+    console.log("ngAfterContentInit  called")
+  }
+}
+```
+
+6) ngAfterContentChecked
+
+we need to implement the ngAfterContentChecked method in the ServerElementsComponent class
+```
+export class ServerElementsComponent implements OnInit,OnChanges,DoCheck,AfterContentInit,AfterContentChecked {
+ ngAfterContentChecked(){
+    console.log("ngAfterContentChecked  called")
+  }
+}
+```
+
+7) ngAfterViewInit
+
+we need to implement the ngAfterContentInit method in the ServerElementsComponent class
+```
+export class ServerElementsComponent implements OnInit,OnChanges,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit {
+ ngAfterViewInit(){
+    console.log("ngAfterViewInit  called")
+  }
+}
+```
+
+8) ngAfterViewChecked
+
+we need to implement the ngAfterViewChecked method in the ServerElementsComponent class
+```
+export class ServerElementsComponent implements OnInit,OnChanges,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked {
+ ngAfterViewChecked(){
+    console.log("ngAfterViewChecked  called")
+  }
+}
+```
+
+9) ngOnDestroy
+
+we need to implement the ngOnDestroy method in the ServerElementsComponent class
+```
+export class ServerElementsComponent implements OnInit,OnChanges,DoCheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy {
+  ngOnDestroy(){
+    console.log("ngOnDestroy  called")
+  }
+}
+```
 
