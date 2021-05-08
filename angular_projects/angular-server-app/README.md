@@ -185,3 +185,7 @@ inside cockpits.component.ts
       console.log(this.servernamesInputva.nativeElement.value)
   }
 ```
+
+#### Understanding the Component Life Cycle
+
+
