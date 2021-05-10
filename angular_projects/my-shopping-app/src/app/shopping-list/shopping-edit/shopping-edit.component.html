@@ -8,7 +8,7 @@
              type="text"
              id="name"
              class="form-control"
-            >
+            #nameInput>
           </div>
           <div class="col-sm-2 form-group">
             <label for="amount">Amount</label>
@@ -16,10 +16,10 @@
              type="number"
              id="amount"
              class="form-control" 
-             >
+             #amountInput>
           </div>
           <div class="col-xs-12 btn-toolbar">
-            <button class="btn btn-success" type="submit">Add</button>
+            <button class="btn btn-success" (click)="onAdditem()" type="submit">Add</button>
             <button class="btn btn-danger" type="button">Delete</button>
             <button class="btn btn-primary" type="button">Clear</button>
             </div>

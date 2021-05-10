@@ -312,7 +312,7 @@ and bind to that compoent
 ```
 
 Step 10 : 
-Go inside recipe-detail.component.html and bide the name and description
+Go inside  recipe-detail.component.html and bide the name and description
 ```
 <div class="row">
     <div class="col-xs-12">
@@ -353,3 +353,96 @@ Go inside recipe-detail.component.html and bide the name and description
   </div>
 ```
 
+#### Allowing the USer to Add Ingredients
+
+Step 1: add amountInput and nameInput inside shopping-edit.component.html
+and add onAdditem function
+```
+<div class="row">
+    <div class="col-xs-12">
+      <form>
+        <div class="row">
+          <div class="col-sm-5 form-group">
+            <label for="name">Name</label>
+            <input
+             type="text"
+             id="name"
+             class="form-control"
+            #nameInput>
+          </div>
+          <div class="col-sm-2 form-group">
+            <label for="amount">Amount</label>
+            <input
+             type="number"
+             id="amount"
+             class="form-control" 
+             #amountInput>
+          </div>
+          <div class="col-xs-12 btn-toolbar">
+            <button class="btn btn-success" (click)="onAdditem()" type="submit">Add</button>
+            <button class="btn btn-danger" type="button">Delete</button>
+            <button class="btn btn-primary" type="button">Clear</button>
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>
+```
+
+Step 2:
+
+shopping-edit.component.ts
+
+```
+import { Component, ElementRef, OnInit, ViewChild ,EventEmitter, Output} from '@angular/core';
+import { Ingriedent } from 'src/app/shared/indigrient.model';
+
+@Component({
+  selector: 'app-shopping-edit',
+  templateUrl: './shopping-edit.component.html',
+  styleUrls: ['./shopping-edit.component.scss']
+})
+export class ShoppingEditComponent implements OnInit {
+  @ViewChild('nameInput') nameInputRef : ElementRef;
+  @ViewChild('amountInput') amountInputRef: ElementRef;
+ @Output() ingredientAdded = new EventEmitter<Ingriedent>();
+
+  onAdditem(){
+const newingredientAdded=new Ingriedent(this.nameInputRef.nativeElement.value,this.amountInputRef.nativeElement.value)
+this.ingredientAdded.emit(newingredientAdded);  
+}
+
+}
+
+```
+
+Step 3:
+
+shopping-list.component.html
+
+```
+<div class="row">
+    <div class="col-xs-10">
+      <app-shopping-edit
+      (ingredientAdded)="oningredientAdded($event)"></app-shopping-edit>
+      <hr>
+      <ul class="list-group" >
+        <a class="list-group-item" style="cursor: pointer" *ngFor="let indigrient of indigrients">{{indigrient.name}} ({{indigrient.amount}})</a>
+      </ul>
+    </div>
+  </div>
+```
+
+Step 4:
+
+shopping-list.component.ts
+
+```
+ indigrients : Ingriedent[] = [ new Ingriedent("Apple", 1), new Ingriedent("Mango", 6)];
+
+
+  oningredientAdded(ingre: Ingriedent){
+this.indigrients.push(ingre)
+  }
+
+```
