@@ -156,3 +156,7 @@ In html file
 <p *ngFor="let server of servers;let i=index">{{i}}{{server}}</p>
 ```
 
+
+
+#### Directives Deep Dive
+
