@@ -6,12 +6,14 @@ import { ServerComponent } from './server/server.component';
 import { ServersComponent } from './servers/servers.component';
 import {FormsModule} from '@angular/forms';
 import { DirectivesDeeComponent } from './directives-dee/directives-dee.component'
+import { BasicHighlightDirective } from './basic-highlight/basic-highlight-directive';
 @NgModule({
   declarations: [
     AppComponent,
     ServerComponent,
     ServersComponent,
-    DirectivesDeeComponent
+    DirectivesDeeComponent,
+    BasicHighlightDirective
   ],
   imports: [
     BrowserModule,FormsModule

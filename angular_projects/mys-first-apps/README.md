@@ -120,3 +120,61 @@ Step 3: add styple in directive-dee.component.html
 
 ```
 
+
+#### Creating a Basic Attribute Directives
+
+Step 1:
+
+Create the ts file basic-hightlight-directive.ts
+
+Step 2: basic-hightlight-directive.ts update
+
+add the selecter and create constuctor and override onOnit func
+
+```
+import { Directive, ElementRef, OnInit } from "@angular/core";
+
+@Directive({
+    selector:'[appbBasicHightlight]'
+})
+export class BasicHighlightDirective implements OnInit{
+
+constructor(private elementRef: ElementRef){
+
+}
+
+ngOnInit(){
+    this.elementRef.nativeElement.style.backgroundColor='yellow';
+}
+
+}
+```
+
+Step 3
+
+we need to inform to angular that we have a new directive
+
+add inside declaration section of module
+
+```
+import { BasicHighlightDirective } from './basic-highlight/basic-highlight-directive';
+@NgModule({
+  declarations: [
+    AppComponent,
+    ServerComponent,
+    ServersComponent,
+    DirectivesDeeComponent,
+    BasicHighlightDirective
+  ],
+```
+
+Step 4:
+
+Now use this directive in directive-dee.component.html
+
+```
+<p appbBasicHightlight>
+                Basic Directive demo
+            </p>
+```
+
