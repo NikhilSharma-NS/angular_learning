@@ -5,11 +5,17 @@
             <br><br>
             <ul class="list-group">
                 <div *ngIf="onlyOdd">
-                    <li class="list-group-item" *ngFor="let n of oddNumber">{{n}}
+                    <li class="list-group-item" 
+                    [ngClass]="{odd: n % 2 != 0}" 
+                    [ngStyle]="{backgroundColor: n % 2 != 0 ? 'yellow':'transparent'}"
+                    *ngFor="let n of oddNumber">{{n}}
                     </li>
                 </div>
                 <div *ngIf="!onlyOdd">
-                    <li class="list-group-item" *ngFor="let n of evenNumber">{{n}}
+                    <li class="list-group-item" 
+                    [ngClass]="{odd: n % 2 != 0}"
+                    [ngStyle]="{backgroundColor: n % 2 != 0 ? 'yellow':'transparent'}"
+                     *ngFor="let n of evenNumber">{{n}}
                     </li>
                 </div>
 

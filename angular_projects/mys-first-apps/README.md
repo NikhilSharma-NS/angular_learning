@@ -1,27 +1,122 @@
-# MysFirstApps
+#### ngIf and nf For 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.11.
 
-## Development server
+###### Step1
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Add the even and oddNumber is directive-dee.component.ts
 
-## Code scaffolding
+```
+  numbers=[1,2,3,4,5]
+  oddNumber=[1,3,5]
+  evenNumber=[2,4]
+  onlyOdd = false;
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+###### Step2
 
-## Build
+directive-dee.component.html 
+Inside this file show odd data on click of button so we need to add 
+ngIf Condition
+For display  the number we need to use ngFor
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-primary" (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+            <br><br>
+            <ul class="list-group">
+                <div *ngIf="onlyOdd">
+                    <li class="list-group-item" *ngFor="let n of oddNumber">{{n}}
+                    </li>
+                </div>
+                <div *ngIf="!onlyOdd">
+                    <li class="list-group-item" *ngFor="let n of evenNumber">{{n}}
+                    </li>
+                </div>
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+            </ul>
+        </div>
+    </div>
+</div>
+```
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+#### ngClass and ngStyple 
 
-## Further help
+Step1
+directive-dee.component.css
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```
+.odd{
+    color: blue;
+}
+
+.even{
+    color: brown;
+}
+```
+
+Step2
+directive-dee.component.html
+
+add the condition for directive
+
+```
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-primary" (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+            <br><br>
+            <ul class="list-group">
+                <div *ngIf="onlyOdd">
+                    <li class="list-group-item" [ngClass]="{odd: n % 2 != 0}" *ngFor="let n of oddNumber">{{n}}
+                    </li>
+                </div>
+                <div *ngIf="!onlyOdd">
+                    <li class="list-group-item" [ngClass]="{odd: n % 2 != 0}" *ngFor="let n of evenNumber">{{n}}
+                    </li>
+                </div>
+
+
+            </ul>
+        </div>
+    </div>
+</div>
+```
+
+Step 3: add styple in directive-dee.component.html
+
+ [ngStyle]="{backgroundColor: n % 2 != 0 ? 'yellow':'transparent'}"
+
+```
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-primary" (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+            <br><br>
+            <ul class="list-group">
+                <div *ngIf="onlyOdd">
+                    <li class="list-group-item" 
+                    [ngClass]="{odd: n % 2 != 0}" 
+                    [ngStyle]="{backgroundColor: n % 2 != 0 ? 'yellow':'transparent'}"
+                    *ngFor="let n of oddNumber">{{n}}
+                    </li>
+                </div>
+                <div *ngIf="!onlyOdd">
+                    <li class="list-group-item" 
+                    [ngClass]="{odd: n % 2 != 0}"
+                    [ngStyle]="{backgroundColor: n % 2 != 0 ? 'yellow':'transparent'}"
+                     *ngFor="let n of evenNumber">{{n}}
+                    </li>
+                </div>
+
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+```
+
