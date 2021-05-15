@@ -178,3 +178,130 @@ Now use this directive in directive-dee.component.html
             </p>
 ```
 
+##### Using the Renderer to build a Better Attribute Directive
+
+Step1 :
+
+ng g directive better-highlight
+
+
+Step 2: Now add the below inside better-hightlight.directive.ts
+
+```
+import { Directive,ElementRef,OnInit,Renderer2 } from '@angular/core';
+
+@Directive({
+  selector: '[appBetterHighlight]'
+})
+export class BetterHighlightDirective implements OnInit{
+
+  constructor(private eleref:ElementRef,private ren:Renderer2) { }
+
+  ngOnInit(){
+    this.ren.setStyle(this.eleref.nativeElement,'background-color','green')
+  }
+
+}
+
+```
+
+
+Step3 : add below content in directive.dee.componnet.html
+
+```
+ <p appBetterHighlight>
+                Better Directive demo
+            </p>
+```
+
+#### Using HostListener to Listen to Host Events
+
+Step 1:
+
+we can add the css on the basic of event of directive
+
+for mouseenter,mouseleave,click -> need to add below function in better-hightligt.directive.ts
+
+```
+ @HostListener('mouseenter')mouseenter(eve:Event){
+    this.ren.setStyle(this.eleref.nativeElement,'background-color','green')
+  }
+  @HostListener('mouseleave')mouseleave(eve:Event){
+    this.ren.setStyle(this.eleref.nativeElement,'background-color','yellow')
+  }
+  @HostListener('click')click(eve:Event){
+    this.ren.setStyle(this.eleref.nativeElement,'background-color','red')
+  }
+```
+
+
+#### Using HostBinding to bind to Host Properties
+
+better-hightligt.directive.ts
+
+```
+@HostBinding('style.backgroundColor') backgroundColor: string;
+
+  ngOnInit(){
+   // this.ren.setStyle(this.eleref.nativeElement,'background-color','green')
+  }
+
+  @HostListener('mouseenter')mouseenter(eve:Event){
+   // this.ren.setStyle(this.eleref.nativeElement,'background-color','green')
+    this.backgroundColor='green'
+  }
+  @HostListener('mouseleave')mouseleave(eve:Event){
+    //this.ren.setStyle(this.eleref.nativeElement,'background-color','yellow')
+    this.backgroundColor='yellow'
+  }
+  @HostListener('click')click(eve:Event){
+   // this.ren.setStyle(this.eleref.nativeElement,'background-color','red')
+    this.backgroundColor='red'
+  }
+```
+
+
+#### binding to directive Properties 
+
+Step1
+
+Inside better-highlight.directive.ts
+
+```
+@Input() defaultColor: string = 'transparent'
+ @Input() hightlightColor: string = 'yellow'
+
+  @HostBinding('style.backgroundColor') backgroundColor: string=this.defaultColor;
+
+  ngOnInit(){
+   // this.ren.setStyle(this.eleref.nativeElement,'background-color','green')
+  }
+
+  @HostListener('mouseenter')mouseenter(eve:Event){
+   // this.ren.setStyle(this.eleref.nativeElement,'background-color','green')
+    //this.backgroundColor='green'
+    this.backgroundColor=this.hightlightColor;
+  }
+  @HostListener('mouseleave')mouseleave(eve:Event){
+    //this.ren.setStyle(this.eleref.nativeElement,'background-color','yellow')
+    //this.backgroundColor='yellow'
+    this.backgroundColor=this.defaultColor;
+  }
+
+```
+
+Step2 :
+
+Inside directive-dee.componenet.html
+
+```
+ <p appBetterHighlight [defaultColor]="'purple'" [hightlightColor]="'green'">
+                Better Directive demo Properties
+            </p>
+```
+
+
+##### What Happens behind the Scenes On Structural Directives
+
+*ngIf
+

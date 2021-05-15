@@ -160,3 +160,21 @@ In html file
 
 #### Directives Deep Dive
 
+Module Introduction
+
+Attribute vs Structural Directives
+
+###### Attribute Directives
+
+1)Look like a normal HTML Attribute (possibly with databinding or event binding)
+2)only affect/change the element they are added to 
+
+###### Structural Directives
+
+1) Look like a normal HTML Attribute but having a leading * (for desugaring)
+2) Affect a whole area in the DOM (elements get added/removed)
+
+
+#### ngFor and ngIf
+
+
