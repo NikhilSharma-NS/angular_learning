@@ -28,6 +28,15 @@
             <p appBetterHighlight [defaultColor]="'purple'" [hightlightColor]="'green'">
                 Better Directive demo Properties
             </p>
+
+            <div *appUnless="onlyOdd">
+                <li class="list-group-item" 
+                [ngClass]="{odd: n % 2 != 0}"
+                [ngStyle]="{backgroundColor: n % 2 != 0 ? 'yellow':'transparent'}"
+                 *ngFor="let n of evenNumber">{{n}}
+                </li>
+            </div>
+
         </div>
     </div>
 </div>

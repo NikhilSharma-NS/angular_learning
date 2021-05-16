@@ -8,6 +8,7 @@ import {FormsModule} from '@angular/forms';
 import { DirectivesDeeComponent } from './directives-dee/directives-dee.component'
 import { BasicHighlightDirective } from './basic-highlight/basic-highlight-directive';
 import { BetterHighlightDirective } from './better-directive/better-highlight.directive';
+import { UnlessDirective } from './unless-directive/unless.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -15,7 +16,8 @@ import { BetterHighlightDirective } from './better-directive/better-highlight.di
     ServersComponent,
     DirectivesDeeComponent,
     BasicHighlightDirective,
-    BetterHighlightDirective
+    BetterHighlightDirective,
+    UnlessDirective
   ],
   imports: [
     BrowserModule,FormsModule

@@ -305,3 +305,64 @@ Inside directive-dee.componenet.html
 
 *ngIf
 
+it will add ng-template and add the condition 
+
+
+#### Building a Strctural Directive
+
+Step 1:
+ng g d unless
+
+Step 2:
+
+Add the below conatin in unless.directive.ts file
+
+```
+import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+
+@Directive({
+  selector: '[appUnless]'
+})
+export class UnlessDirective {
+
+  @Input() set unless(condition: boolean) {
+    if (!condition) {
+      this.vcRef.createEmbeddedView(this.temRef);
+    } else {
+      this.vcRef.clear();
+    }
+  }
+  constructor(private temRef: TemplateRef<any>, private vcRef: ViewContainerRef) { }
+
+}
+
+```
+
+Step 3:
+Add below inside directive-dee.component.html
+
+```
+ <div *appUnless="onlyOdd">
+                <li class="list-group-item" 
+                [ngClass]="{odd: n % 2 != 0}"
+                [ngStyle]="{backgroundColor: n % 2 != 0 ? 'yellow':'transparent'}"
+                 *ngFor="let n of evenNumber">{{n}}
+                </li>
+            </div>
+```
+
+Step 4: 
+Now we will get this error 
+
+core.js:10126 NG0303: Can't bind to 'appUnless' since it isn't a known property of 'div'.
+
+Step 5:
+
+Need to update inside unless.directive.ts file 
+
+```
+ @Input() set unless(condition: boolean) {
+
+     to 
+  @Input() set appUnless(condition: boolean) {
+```
