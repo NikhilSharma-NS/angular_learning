@@ -72,6 +72,7 @@ What is TypeScript
 More features than vanilla JS(eg: Types,Classes,Interfaces)
 
 TypeScript Compiled to JavaScript
+--
 
 
 For Install Boot Strap in project
