@@ -446,3 +446,73 @@ this.indigrients.push(ingre)
   }
 
 ```
+
+
+
+##### building and using a Dropdown directive
+
+Step 1:
+Create a file in shared folder dropdown.directive.ts
+
+Step 2: 
+need to add the Host Binding and Host Listner
+dropdown.directive.ts
+```
+import { Directive, HostBinding, HostListener } from '@angular/core';
+
+@Directive({
+  selector: '[appDropdown]'
+})
+export class DropdownDirective {
+  @HostBinding('class.open') isOpen = false
+
+  @HostListener('click') toggleOpen() {
+    this.isOpen = !this.isOpen
+  }
+
+  constructor() { }
+
+}
+
+```
+
+Step 3:
+Now we can use this(appDropdown) in detail component
+recipe-details.component.html
+
+```
+<div class="row">
+    <div class="col-xs-12">
+      <div class="btn-group"
+      appDropdown>
+        <button type="button" class="btn btn-primary dropdown-toogle">Manage recipe <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="#">To shopping list</a></li>
+          <li><a href="#">Edit recipe</a></li>
+          <li><a href="#">Delete recipe</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+```
+
+Step 4:
+
+In the header.component.html need to add appDropdown directive 
+
+we need to handle onclick open css will add and next click it will be removed
+
+```
+ <ul class="nav navbar-nav navbar-right" >
+          <li class="dropdown" appDropdown>
+            <a href="#" class="dropdown-toogle" role="button">
+              Manage <span class="caret"></span> 
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Save Data</a></li>
+              <li><a href="#">Fetch Data</a></li>
+            </ul>
+          </li>
+        </ul>
+```
+
