@@ -366,3 +366,28 @@ Need to update inside unless.directive.ts file
      to 
   @Input() set appUnless(condition: boolean) {
 ```
+
+#### Understaning of ngSwwitch
+
+Step 1: 
+add the value in ts file
+directives-dee.component.ts
+
+```
+value = 15
+```
+
+Step 2: 
+add the condition in html file
+directives-dee.component.html
+
+```
+ <div [ngSwitch]="value">
+                <p *ngSwitchCase="5">Value is 5</p>
+                <p *ngSwitchCase="10">Value is 10</p>
+                <p *ngSwitchCase="15">Value is 15</p>
+                <p *ngSwitchDefault="20">Value is Default</p>
+            </div>
+```
+
+

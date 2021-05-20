@@ -5,17 +5,15 @@
             <br><br>
             <ul class="list-group">
                 <div *ngIf="onlyOdd">
-                    <li class="list-group-item" 
-                    [ngClass]="{odd: n % 2 != 0}" 
-                    [ngStyle]="{backgroundColor: n % 2 != 0 ? 'yellow':'transparent'}"
-                    *ngFor="let n of oddNumber">{{n}}
+                    <li class="list-group-item" [ngClass]="{odd: n % 2 != 0}"
+                        [ngStyle]="{backgroundColor: n % 2 != 0 ? 'yellow':'transparent'}" *ngFor="let n of oddNumber">
+                        {{n}}
                     </li>
                 </div>
                 <div *ngIf="!onlyOdd">
-                    <li class="list-group-item" 
-                    [ngClass]="{odd: n % 2 != 0}"
-                    [ngStyle]="{backgroundColor: n % 2 != 0 ? 'yellow':'transparent'}"
-                     *ngFor="let n of evenNumber">{{n}}
+                    <li class="list-group-item" [ngClass]="{odd: n % 2 != 0}"
+                        [ngStyle]="{backgroundColor: n % 2 != 0 ? 'yellow':'transparent'}" *ngFor="let n of evenNumber">
+                        {{n}}
                     </li>
                 </div>
             </ul>
@@ -30,11 +28,17 @@
             </p>
 
             <div *appUnless="onlyOdd">
-                <li class="list-group-item" 
-                [ngClass]="{odd: n % 2 != 0}"
-                [ngStyle]="{backgroundColor: n % 2 != 0 ? 'yellow':'transparent'}"
-                 *ngFor="let n of evenNumber">{{n}}
+                <li class="list-group-item" [ngClass]="{odd: n % 2 != 0}"
+                    [ngStyle]="{backgroundColor: n % 2 != 0 ? 'yellow':'transparent'}" *ngFor="let n of evenNumber">
+                    {{n}}
                 </li>
+            </div>
+
+            <div [ngSwitch]="value">
+                <p *ngSwitchCase="5">Value is 5</p>
+                <p *ngSwitchCase="10">Value is 10</p>
+                <p *ngSwitchCase="15">Value is 15</p>
+                <p *ngSwitchDefault="20">Value is Default</p>
             </div>
 
         </div>
