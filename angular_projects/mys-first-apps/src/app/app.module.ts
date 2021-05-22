@@ -9,6 +9,8 @@ import { DirectivesDeeComponent } from './directives-dee/directives-dee.componen
 import { BasicHighlightDirective } from './basic-highlight/basic-highlight-directive';
 import { BetterHighlightDirective } from './better-directive/better-highlight.directive';
 import { UnlessDirective } from './unless-directive/unless.directive';
+import { AccountComponent } from './account/account.component';
+import { NewAccountComponent } from './new-account/new-account.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +19,9 @@ import { UnlessDirective } from './unless-directive/unless.directive';
     DirectivesDeeComponent,
     BasicHighlightDirective,
     BetterHighlightDirective,
-    UnlessDirective
+    UnlessDirective,
+    AccountComponent,
+    NewAccountComponent
   ],
   imports: [
     BrowserModule,FormsModule

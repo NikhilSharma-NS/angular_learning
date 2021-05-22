@@ -391,3 +391,139 @@ directives-dee.component.html
 ```
 
 
+#### Services and Dependecy Injection
+
+###### What are services
+
+```
+Application
+
+                         AppComponent                                 <- Log Service
+AboutComponent                            UserComponent               <- User Service 
+(log data to console)                     (Store user data)   
+                                                |
+                                          UserDetailComponent                              
+                                          (log data to console)   
+
+```
+
+
+
+
+Step 1:
+
+ng g c account
+
+account.component.html
+
+```
+<div class="row">
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
+      <h5>{{ account.name }}</h5>
+      <hr>
+      <p>This account is {{ account.status }}</p>
+      <button class="btn btn-default" (click)="onSetTo('active')">Set to 'active'</button>
+      <button class="btn btn-default" (click)="onSetTo('inactive')">Set to 'inactive'</button>
+      <button class="btn btn-default" (click)="onSetTo('unknown')">Set to 'unknown'</button>
+    </div>
+  </div>
+```
+account.component.ts
+
+```
+export class AccountComponent {
+  @Input() account: { name: string; status: string };
+  @Input() id: number;
+  @Output() statusChanged = new EventEmitter<{ id: number, newstatus: string }>();
+
+  onSetTo(status: string) {
+    this.statusChanged.emit({ id: this.id, newstatus: status });
+
+  }
+}
+
+```
+
+Step 2:
+
+ng g c new-account 
+
+new-account.component.ts
+
+```
+export class NewAccountComponent {
+
+@Output() accounAdded = new EventEmitter<{name:string,status:string}>();
+  onCreateAccount(accountName: string, accountStatus: string) {
+   this.accounAdded.emit({name:accountName,status:accountStatus});
+  }
+}
+```
+
+new-account.component.html
+```
+<div class="row">
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
+      <div class="form-group">
+        <label>Account Name</label>
+        <input
+          type="text"
+          class="form-control"
+          #accountName>
+      </div>
+      <div class="form-group">
+        <select class="form-control" #status>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+          <option value="hidden">Hidden</option>
+        </select>
+      </div>
+      <button
+        class="btn btn-primary"
+        (click)="onCreateAccount(accountName.value, status.value)">
+        Add Account
+      </button>
+    </div>
+  </div>
+```
+Step 1:
+
+Add the below data in app component
+app.component.ts
+```
+accounts= [{
+    name: 'Master',
+    status: 'active'
+  }, 
+  {
+    name: 'Test',
+    status: 'inactive'
+  }
+];
+onaddAccount(newAccount:{name:string,status:string}){
+this.accounts.push(newAccount);
+}
+onupdateStatus(undateInfo:{id:number,newstatus:string}){
+this.accounts[undateInfo.id].status=undateInfo.newstatus
+}
+}
+```
+app.component.html
+
+```
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-8 col-md-offset-2">
+        <app-new-account (accountAdded)="addAccount($event)"></app-new-account>
+        <hr />
+        <app-account
+          *ngFor="let acc of accounts; let i = index"
+          [account]="acc"
+          [id]="i"
+          (statusChanged)="updateStatus($event)"
+        ></app-account>
+      </div>
+    </div>
+  </div>
+
+```
