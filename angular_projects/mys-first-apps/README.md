@@ -486,7 +486,7 @@ new-account.component.html
     </div>
   </div>
 ```
-Step 1:
+Step 3:
 
 Add the below data in app component
 app.component.ts
@@ -527,3 +527,9 @@ app.component.html
   </div>
 
 ```
+
+##### Creating a Logging Service
+
+1) create the service
+logging.service.ts
+
