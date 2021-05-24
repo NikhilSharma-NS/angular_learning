@@ -530,6 +530,36 @@ app.component.html
 
 ##### Creating a Logging Service
 
-1) create the service
-logging.service.ts
+Step 1: create the service
+ng g s service/logging
 
+```
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class LoggingService {
+
+  constructor() { }
+
+  logStatusChange(status: string){
+    console.log("Status Changed to "+status);
+  }
+}
+
+
+```
+
+Step 2:
+
+Now we will use the logging service in the component
+
+inside new-account.component.ts
+
+```
+ onCreateAccount(accountName: string, accountStatus: string) {
+    const logService=new LoggingService();
+    logService.logStatusChange(status);
+ }
+```

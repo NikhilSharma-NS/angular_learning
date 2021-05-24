@@ -6,4 +6,8 @@ import { Injectable } from '@angular/core';
 export class LoggingService {
 
   constructor() { }
+
+  logStatusChange(status: string){
+    console.log("account is created "+status);
+  }
 }
