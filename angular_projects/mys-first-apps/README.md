@@ -563,3 +563,187 @@ inside new-account.component.ts
     logService.logStatusChange(status);
  }
 ```
+
+
+###### Injecting the logging service into components
+
+Step1: Add the constructor in new-account.component
+we need to add provider as well 
+
+```
+@Component({
+  selector: 'app-new-account',
+  templateUrl: './new-account.component.html',
+  styleUrls: ['./new-account.component.css'],
+  providers:[LoggingService]
+})
+export class NewAccountComponent {
+
+  constructor(private logservice:LoggingService){
+
+  }
+
+@Output() accountAdded = new EventEmitter<{name:string,status:string}>();
+  onCreateAccount(accountName: string, accountStatus: string) {
+   this.accountAdded.emit({name:accountName,status:accountStatus});
+   this.logservice.logStatusChange(accountName);
+  }
+}
+```
+
+##### creating the data Service
+
+Step 1: 
+
+create the service  ( ng g s AccountsService)
+
+Step 2:
+
+```
+import { Injectable } from '@angular/core';
+
+
+export class AccountsServiceService {
+  accounts= [{
+    name: 'Master',
+    status: 'active'
+  }, 
+  {
+    name: 'Test',
+    status: 'inactive'
+  }
+];
+
+  constructor() { }
+
+
+  addAccount(name: string,status: string){
+    this.accounts.push({name:name,status:status});
+  }
+
+  updateStatus(id: number,status: string){
+    this.accounts[id].status=status;
+  }
+}
+
+```
+
+Step 3: 
+add the AccountsServiceService in AppComponent and assign the account 
+
+```
+import { Component, OnInit } from '@angular/core';
+import { AccountsServiceService } from './service/accounts-service.service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  providers:[AccountsServiceService]
+})
+export class AppComponent implements OnInit{
+  title = 'mys-first-apps';
+  accounts:
+  {
+    name:string,
+    status: string
+  }[]=[];
+ 
+  constructor(private accountService: AccountsServiceService){
+
+  }
+
+  ngOnInit(){
+    this.accounts=this.accountService.accounts
+  }
+}
+```
+
+Step 4: Go inside new account component and use the account service
+
+```
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AccountsServiceService } from '../service/accounts-service.service';
+import { LoggingService } from '../service/logging.service';
+
+
+@Component({
+  selector: 'app-new-account',
+  templateUrl: './new-account.component.html',
+  styleUrls: ['./new-account.component.css'],
+  providers:[LoggingService,AccountsServiceService]
+})
+export class NewAccountComponent {
+
+  constructor(private logservice:LoggingService,private accService:AccountsServiceService){
+
+  }
+
+//@Output() accountAdded = new EventEmitter<{name:string,status:string}>();
+  onCreateAccount(accountName: string, accountStatus: string) {
+  // this.accountAdded.emit({name:accountName,status:accountStatus});
+   this.logservice.logStatusChange(accountName);
+   this.accService.addAccount(accountName,accountStatus)
+  }
+}
+```
+
+Step 5:
+
+Now go inside account component
+
+```
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AccountsServiceService } from '../service/accounts-service.service';
+
+@Component({
+  selector: 'app-account',
+  templateUrl: './account.component.html',
+  styleUrls: ['./account.component.css'],
+  providers:[AccountsServiceService]
+})
+export class AccountComponent {
+
+  constructor(private accService:AccountsServiceService){
+
+  }
+
+  @Input() account: { name: string, status: string };
+  @Input() id: number;
+  //@Output() statusChanged = new EventEmitter<{ id: number, newstatus: string }>();
+
+  onSetTo(status: string) {
+    //this.statusChanged.emit({ id: this.id, newstatus: status });
+this.accService.updateStatus(this.id,status)
+    console.log(status)
+  }
+
+
+}
+
+
+```
+
+Step 6:
+for now remove the binding in app.component.html
+
+```
+<app-servers></app-servers>
+
+<app-directives-dee></app-directives-dee>
+
+
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-8 col-md-offset-2">
+        <app-new-account ></app-new-account>
+        <hr />
+        <app-account
+          *ngFor="let acc of accounts; let i = index"
+          [account]="acc"
+          [id]="i"
+        ></app-account>
+      </div>
+    </div>
+  </div>
+```
