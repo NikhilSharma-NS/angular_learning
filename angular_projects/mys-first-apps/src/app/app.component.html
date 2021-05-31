@@ -12,7 +12,7 @@
           *ngFor="let acc of accounts; let i = index"
           [account]="acc"
           [id]="i"
-        ></app-account>
+          (statusChangednameany)="updateStatus123($event)"></app-account>
       </div>
     </div>
   </div>

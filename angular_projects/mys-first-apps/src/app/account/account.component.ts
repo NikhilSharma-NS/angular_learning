@@ -1,15 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AccountsServiceService } from '../service/accounts-service.service';
+import { LoggingService } from '../service/logging.service';
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css'],
-  providers:[AccountsServiceService]
+  providers:[LoggingService]
 })
 export class AccountComponent {
 
-  constructor(private accService:AccountsServiceService){
+  constructor(private logServ:LoggingService,private accService:AccountsServiceService){
 
   }
 
@@ -19,7 +20,7 @@ export class AccountComponent {
 
   onSetTo(status: string) {
     //this.statusChanged.emit({ id: this.id, newstatus: status });
-this.accService.updateStatus(this.id,status)
+this.accService.updateStatuss(this.id,status)
     console.log(status)
   }
 

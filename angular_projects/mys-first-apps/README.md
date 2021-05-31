@@ -750,6 +750,7 @@ for now remove the binding in app.component.html
 
 
 ##### Hierarchial Injector
+
 ```
 
 AppModule -> Same Instance of service is avaliable Application wide
@@ -761,4 +762,5 @@ Any Other Component -> Same instance of service is avaliable for the components
 and all its child components
 
 ```
+
 

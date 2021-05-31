@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 
+@Injectable()
 export class AccountsServiceService {
   accounts= [{
     name: 'Master',
@@ -19,7 +20,7 @@ export class AccountsServiceService {
     this.accounts.push({name:name,status:status});
   }
 
-  updateStatus(id: number,status: string){
+  updateStatuss(id: number,status: string){
     this.accounts[id].status=status;
   }
 }
